@@ -8,6 +8,7 @@ public class LOD_Settings : EditorWindow
     private enum Settings
     {
         None,
+        SmallObject,
         Trees,
         Bush,
         Vehicles
@@ -23,7 +24,6 @@ public class LOD_Settings : EditorWindow
 
     void OnGUI()
     {
-
         EditorGUILayout.LabelField("Settings");
         EditorGUILayout.BeginVertical("box");
         culled_distance = EditorGUILayout.Slider("Culled distance", culled_distance, 0f, 1f);
@@ -36,17 +36,21 @@ public class LOD_Settings : EditorWindow
         {
             switch (settings)
             {
-                case Settings.Trees:
-                    culled_distance = 0.03f;
-                    lod1_distance = 0.35f;
+                case Settings.SmallObject:
+                    culled_distance = 0.01f;
+                    lod1_distance = 0.18f;
+                    break;
+                case Settings.Vehicles:
+                    culled_distance = 0.08f;
+                    lod1_distance = 0.21f;
                     break;
                 case Settings.Bush:
                     culled_distance = 0.03f;
                     lod1_distance = 0.21f;
                     break;
-                case Settings.Vehicles:
-                    culled_distance = 0.08f;
-                    lod1_distance = 0.21f;
+                case Settings.Trees:
+                    culled_distance = 0.03f;
+                    lod1_distance = 0.35f;
                     break;
                 default:
                     break;
@@ -58,17 +62,29 @@ public class LOD_Settings : EditorWindow
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
+        EditorGUILayout.BeginVertical("box");
         EditorGUILayout.LabelField("Controls");
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Start", GUILayout.Width(130), GUILayout.Height(25)))
+        if (GUILayout.Button("Start", GUILayout.Height(25)))
         {
             StartGeneration();
         }
-        if (GUILayout.Button("Split LODs", GUILayout.Width(130), GUILayout.Height(25)))
+        if (GUILayout.Button("Split", GUILayout.Height(25)))
         {
             CustomUtilites.GetSelectedUVs();
         }
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical("box");
+        EditorGUILayout.LabelField("Collision");
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Start collision Gen", GUILayout.Height(25)))
+        {
+            CustomUtilites.SetCollision();
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
     }
 
     private static void StartGeneration()
