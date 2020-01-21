@@ -76,4 +76,33 @@ public class CustomUtilites : Editor
             }
         }
     }
+    
+    public static void SetCollision()
+    {
+        string[] generate =
+        {
+            "bark",
+            "veh",
+            "shiffer"
+        };
+        GameObject[] objectArray = Selection.gameObjects;
+        for (int i = 0; i < objectArray.Length; i++)
+        {
+            MeshCollider collider = objectArray[i].GetComponent<MeshCollider>();
+            if (collider != null) DestroyImmediate(collider);
+            int childrenCount = objectArray[i].transform.childCount;
+            for (int j = 0; j < childrenCount; j++)
+            {
+                string matName = objectArray[i].transform.GetChild(j).GetComponent<MeshRenderer>().sharedMaterial.name;
+                for (int k = 0; k < generate.Length; k++)
+                {
+                    if (matName.Contains(generate[k]))
+                    {
+                        objectArray[i].transform.GetChild(j).gameObject.AddComponent<MeshCollider>();
+                    }
+                }
+            }
+
+        }
+    }
 }
