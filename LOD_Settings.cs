@@ -12,8 +12,10 @@ public class LOD_Settings : EditorWindow
     void OnGUI()
     {
         EditorGUILayout.LabelField("Settings");
-        float culled_distance = EditorGUILayout.Slider("Culled distance", 0.06f, 0f, 1f);
-        float lod1_distance = EditorGUILayout.Slider("Lod1 Distance", 0.4f, 0f, 1f);
+        float culled_distance = 0.06f;
+        EditorGUILayout.Slider("Culled distance", culled_distance, 0f, 1f);
+        float lod1_distance = 0.4f;
+        EditorGUILayout.Slider("Lod1 Distance", lod1_distance, 0f, 1f);
         EditorGUILayout.LabelField("Controls");
         if (GUILayout.Button("Start"))
         {
